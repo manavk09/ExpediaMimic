@@ -1,4 +1,4 @@
-
+package cs336proj;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -35,6 +35,7 @@ public class LoginServelet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		String userName = request.getParameter("username");
 		String password = request.getParameter("password");
 		

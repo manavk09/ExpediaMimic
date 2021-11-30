@@ -1,3 +1,4 @@
+package cs336proj;
 
 public class Customer {
 	

@@ -1,3 +1,5 @@
+package cs336proj;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,7 +11,7 @@ public class registerDao {
 	private String dbURL = "jdbc:mysql://localhost:3306/CS336_PROJ";
 	private String dbUserName = "root";
 	private String dbPass = System.getenv("sqlPassword");
-	private String dbDriver = "com.mysql.jdbc.Driver";
+	private String dbDriver = "com.mysql.cj.jdbc.Driver";
 	
 	
 	public void loadDriver(String dbDriver) {
