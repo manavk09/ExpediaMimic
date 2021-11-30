@@ -8,7 +8,7 @@ public class registerDao {
 	
 	private String dbURL = "jdbc:mysql://localhost:3306/CS336_PROJ";
 	private String dbUserName = "root";
-	private String dbPass = "Manavk09";
+	private String dbPass = System.getenv("sqlPassword");
 	private String dbDriver = "com.mysql.jdbc.Driver";
 	
 	
