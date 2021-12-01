@@ -19,9 +19,9 @@ ResultSet result = stmt.executeQuery(str);
 %>
 
 <form method = "post" action = editUsers.jsp>
-	<% 
+	<%
 	while(result.next()){%>
-		<input type = "radio" name = "username" value =<%=result.getString("Username")%>> <%=result.getString("Username")%>
+		<input type = "radio" name = "username" value =<%=result.getString(1)%>> <%=result.getString("Username")%>
 		<br>
 	<% }
 	//db.closeConnection(con);
@@ -32,32 +32,6 @@ ResultSet result = stmt.executeQuery(str);
 	<input name = "action" type = "submit" value = "Delete user"><br>
 	<input name = "action" type = "submit" value = "Edit user"><br>
 </form>
-
-<!--
-<form action = "deleteUser.jsp" method = "post">
-<table>
-	<tr>
-		<td> Username </td>
-	</tr>
-	<% 
-	while(result.next()){%>
-		
-		<tr>
-			<td>
-				<label id = "userName">
-					<%= result.getString("Username") %>
-				</label>
-			</td>
-			<td>
-				<input type = "button" value = "deleteUser.jsp"></input>
-			</td>
-		</tr>
-	<% }
-	//db.closeConnection(con);
-	%>
-</table>
-</form>
--->
 
 <a href = "logoutSuccess.jsp"><button>Logout</button></a>
 </body>
