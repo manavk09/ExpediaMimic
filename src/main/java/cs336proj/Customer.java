@@ -1,7 +1,7 @@
 package cs336proj;
 
 public class Customer {
-	
+	//test
 	private String username;
 	private String password;
 	private String fName;
