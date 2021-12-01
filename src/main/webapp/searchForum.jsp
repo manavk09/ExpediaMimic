@@ -41,21 +41,18 @@
 	registerDao db = new registerDao();
 	Connection con = db.getConnection();
 	Statement stmt = con.createStatement();
-	String str = "SELECT * FROM forum";
+	String keyword = request.getParameter("searchText");
+	String str = "SELECT * FROM forum WHERE forum_question LIKE '%" + keyword + "%' OR answer LIKE '%" + keyword + "%'";
 	ResultSet result = stmt.executeQuery(str);
 %>
 
 <div class = "top-bar">
-	<form method = "post" action = searchForum.jsp>
-		<h1>
-			Website Forum
-				<input type = "text" name = "searchText"  style = "float: right"></input>
-				<button style = "float: right">Search</button>
-		</h1>
-	</form>
+	<h1>
+		Search Result
+			<a href = "customerForum.jsp" ><button style = "float: right">Go back to Forum</button></a>
+	</h1>
 </div>
 <div class="main">
-	<button style = "float: right">New Post</button>
 	<ol>
 	<%	while(result.next()){ %>
 		<li class = "row">

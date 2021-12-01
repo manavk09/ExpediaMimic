@@ -9,5 +9,6 @@
 <body>
 <h1>Welcome, you have successfully logged in as a Customer</h1>
 <a href = "logoutSuccess.jsp"><button>Logout</button></a>
+<a href = "customerForum.jsp"><button>Forum</button></a>
 </body>
 </html>
