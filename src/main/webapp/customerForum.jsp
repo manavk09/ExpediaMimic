@@ -55,7 +55,7 @@
 	</form>
 </div>
 <div class="main">
-	<button style = "float: right">New Post</button>
+	<a href= "newPost.jsp"><button style = "float: right">New Post</button></a>
 	<ol>
 	<%	while(result.next()){ %>
 		<li class = "row">
@@ -70,5 +70,6 @@
 	%>
 	</ol>
 </div>
+
 </body>
 </html>
