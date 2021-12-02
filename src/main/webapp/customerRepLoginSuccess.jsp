@@ -46,6 +46,44 @@ ResultSet result = stmt.executeQuery(str);
 	<input name = "action" type = "submit" value = "Edit Aircraft"><br>
 </form>
 
+
+
+<%
+registerDao d = new registerDao();
+Connection c = d.getConnection();
+Statement st = c.createStatement();
+String strk = "SELECT * FROM airport";
+ResultSet r = st.executeQuery(strk);
+%>
+
+<h3>Adding/Editing/deleting Airport</h3>
+<form method = "post" action = editAirport.jsp>
+<table border=1 align=left style="text-align:center">
+      <thead>
+          <tr>
+             <th>ID</th>
+          </tr>
+      </thead>
+      <tbody>
+        <%while(r.next())
+        {
+            %>
+            <tr>
+                <td><input type = "radio" name = "Airport_ID" value =<%=r.getString("Airport_ID")%>><%=r.getString("Airport_id")%></td>
+                
+            </tr>
+            <%}%>
+           </tbody>
+        </table>
+        What do you want to do?
+	<input name = "action" type = "submit" value = "Add Airport"><br>
+	<input name = "action" type = "submit" value = "Delete Airport"><br>
+	<input name = "action" type = "submit" value = "Edit Airport"><br>
+</form>
+
+
+
+
 <%
 registerDao database = new registerDao();
 Connection conn = database.getConnection();

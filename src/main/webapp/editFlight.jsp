@@ -41,21 +41,29 @@
 		</form>
 		<%
 	}
-	else if(action.equals("Edit Aircraft")){
-		String AircraftID = request.getParameter("Aircraft_id");
+	else if(action.equals("Edit Flight")){
+		String flightNum = request.getParameter("flight_num");
 		registerDao db = new registerDao();
 		Connection con = db.getConnection();
-		PreparedStatement stmnt = con.prepareStatement("SELECT * FROM aircraft WHERE Aircraft_id = ?");
-		stmnt.setString(1, AircraftID);
+		PreparedStatement stmnt = con.prepareStatement("SELECT * FROM flight WHERE flight_num = ?");
+		stmnt.setString(1, flightNum);
 		ResultSet result = stmnt.executeQuery();
 		result.next();
 		%>
-		<form action = "editSubmittedAircraft.jsp" method = post>
-			<input name = "oldAircraftID" value = <%=AircraftID%>>
+		<form action = "editSubmitFlight.jsp" method = post>
+			<input name = "oldFlightNum" value = <%=flightNum%>>
 			<table>
-				<tr><td>Aircraft ID: </td><td><input type="text" name="aircraftID" value = <%=result.getString(1)%>></td></tr>
-				<tr><td>Number of Seats: </td><td><input type="text" name="numSeats" value = <%=result.getString(2)%>></td></tr>
-				<tr><td>Operating Days: </td><td><input type="text" name="opDays" value = <%=result.getString(3)%>></td></tr>
+				<tr><td>Flight number: </td><td><input type="text" name="flightNum" value = <%=result.getString(1)%>></td></tr>
+				<tr><td>Airline: </td><td><input type="text" name="airline" value = <%=result.getString(2)%>></td></tr>
+				<tr><td>Airport: </td><td><input type="text" name="airport" value = <%=result.getString(3)%>></td></tr>
+				<tr><td>Aircraft: </td><td><input type="text" name="aircraft" value = <%=result.getString(4)%>></td></tr>
+				<tr><td>Days Operating: </td><td><input type="text" name="dayOp" value = <%=result.getString(5)%>></td></tr>
+				<tr><td>Departure Airport: </td><td><input type="text" name="depAir" value = <%=result.getString(6)%>></td></tr>
+				<tr><td>Destination Airport: </td><td><input type="text" name="destAir" value = <%=result.getString(7)%>></td></tr>
+				<tr><td>Arrival Time: </td><td><input type="text" name="arrival" value = <%=result.getString(8)%>></td></tr>
+				<tr><td>Departure Time: </td><td><input type="text" name="dep" value = <%=result.getString(9)%>></td></tr>
+				<tr><td>isDomestic: </td><td><input type="text" name="isdom" value = <%=result.getString(10)%>></td></tr>
+				<tr><td>isInternational: </td><td><input type="text" name="isIn" value = <%=result.getString(11)%>></td></tr>
 				<tr>
 					<td><input name = "action" type = "submit" value = "Confirm edits"></td>
 					<td><input name = "action" type = "submit" value = "Cancel edits"></td>
