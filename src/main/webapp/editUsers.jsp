@@ -21,7 +21,7 @@
 		response.sendRedirect("AdminLoginSuccess.jsp");
 	}
 	else if(action.equals("Add user")){
-		response.sendRedirect("customerRegistration.jsp");
+		response.sendRedirect("newUserByAdmin.jsp");
 	}
 	else if(action.equals("Edit user")){
 		String username = request.getParameter("username");
@@ -33,7 +33,7 @@
 		result.next();
 		%>
 		<form action = "editSubmitted.jsp" method = post>
-			<input name = "oldusername" value = <%=username%>>
+			<input type = "radio" name = "oldusername" value = <%=username%>>
 			<table>
 				<tr><td>User Name: </td><td><input type="text" name="username" value = <%=result.getString(1)%>></td></tr>
 				<tr><td>First Name: </td><td><input type="text" name="fName" value = <%=result.getString(3)%>></td></tr>
@@ -44,7 +44,10 @@
 				</tr>
 			</table>
 			
-		<%}
+		<%
+		con.close();
+		}
+		
 		%>
 		</form>
 

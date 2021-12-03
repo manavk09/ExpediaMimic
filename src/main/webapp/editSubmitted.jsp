@@ -24,6 +24,7 @@
 		stmnt.setString(3, lname);
 		stmnt.setString(4, oldusername);
 		stmnt.executeUpdate();
+		con.close();
 	}
 	response.sendRedirect("AdminLoginSuccess.jsp");
 %>
