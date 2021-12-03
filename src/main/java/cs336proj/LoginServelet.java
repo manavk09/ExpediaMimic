@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/login")
 public class LoginServelet extends HttpServlet {
+	public static String userName;
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -35,8 +36,8 @@ public class LoginServelet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		userName = request.getParameter("username");
 		
-		String userName = request.getParameter("username");
 		String password = request.getParameter("password");
 		
 		registerDao dao = new registerDao();

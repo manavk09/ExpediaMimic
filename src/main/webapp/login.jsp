@@ -15,7 +15,9 @@
 <tr><td></td><td><input type = "submit" value ="Login"></td></tr>
 </table>
 </form>
-
+<form action="customerLoginSuccess.jsp" method="post">
+	<input type="hidden" name="user" value= >
+</form>
 <a href = "customerRegistration.jsp"><button>Register</button></a>
 </body>
 </html>
