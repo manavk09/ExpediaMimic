@@ -8,7 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Welcome! You have successfully logged in as a Customer Representative!</h1>
+<h1>Welcome! You have successfully logged in as a Customer Representative!
+<a href = "repForum.jsp" ><button style = "float: right">Go to Answer Forum Questions</button></a>
+</h1>
 <div align = left>
 <%
 registerDao db = new registerDao();
