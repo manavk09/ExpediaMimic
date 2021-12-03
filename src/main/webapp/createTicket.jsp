@@ -29,7 +29,7 @@
 			res = stm.executeQuery(s);
 		}
 		%>
-		<form action = "editSubmitTicket.jsp" method = post>
+		<form action = "createTicketSubmit.jsp" method = post>
 			<lable name = "userID" value = <%=userID%>> <%=userID%></lable>
 			<input type="hidden" name="userID" value = <%=userID%>>
 			<br>
