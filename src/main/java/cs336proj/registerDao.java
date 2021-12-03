@@ -13,7 +13,6 @@ public class registerDao {
 	private String dbPass = System.getenv("sqlPassword");
 	private String dbDriver = "com.mysql.cj.jdbc.Driver";
 	
-	
 	public void loadDriver(String dbDriver) {
 		try {
 			Class.forName(dbDriver);
@@ -34,7 +33,6 @@ public class registerDao {
 		}
 		return con;
 	}
-	
 	
 	public int insert(Customer customer) {
 		//first load the driver
