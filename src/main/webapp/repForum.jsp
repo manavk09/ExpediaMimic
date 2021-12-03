@@ -34,28 +34,24 @@
 </style>
 <head>
 <meta charset="ISO-8859-1">
-<title>Forum</title>
+<title>Unanswered questions</title>
 </head>
 <body>
 <%
 	registerDao db = new registerDao();
 	Connection con = db.getConnection();
 	Statement stmt = con.createStatement();
-	String str = "SELECT * FROM forum";
+	String str = "SELECT * FROM forum where answered = 0";
 	ResultSet result = stmt.executeQuery(str);
 %>
 
 <div class = "top-bar">
-	<form method = "post" action = searchForum.jsp>
 		<h1>
-			Website Forum
-				<input type = "text" name = "searchText"  style = "float: right"></input>
-				<button style = "float: right">Search</button>
+			Unanswered Forum Questions
+			<a href = "customerRepLoginSuccess.jsp"><button style="float: right">Go back to Rep page</button></a>
 		</h1>
-	</form>
 </div>
 <div class="main">
-	<a href= "newPost.jsp"><button style = "float: right">New Post</button></a>
 	<ol>
 	<%	while(result.next()){ %>
 		<li class = "row">
@@ -65,6 +61,10 @@
 		<p class= "answer">
 			<%= result.getString("answer") %>
 		</p>
+		<form method = "post" action = repAnswer.jsp>
+		<% String question = result.getString("forum_question").replaceAll(" ", "%20"); %>
+			<a href = "repAnswer.jsp"><button name = "question" value = <%= question %> >Answer</button></a>
+		</form>
 		</li>
 		<%}
 	%>
