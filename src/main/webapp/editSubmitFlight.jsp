@@ -25,7 +25,7 @@
 		registerDao db = new registerDao();
 		Connection con = db.getConnection();
 		String sqlStatement =
-			"UPDATE flight SET Flight_num = ?, ID_Airline = ?, ID_Airport = ?, ID_Aircraft = ?, Days_operating = ?, Departure_Airport = ?, Destination_Airport = ?, Arrival_Time = ?, Departure_Time = ?, isDomestic = ?, isInternation = ? WHERE Flight_num = ?";
+			"UPDATE flight SET Flight_num = ?, ID_Airline = ?, ID_Airport = ?, ID_Aircraft = ?, Days_operating = ?, Departure_Airport = ?, Destination_Airport = ?, Arrival_Time = ?, Departure_Time = ?, isDomestic = ?, isInternational = ? WHERE Flight_num = ?";
 		try{
 			PreparedStatement stmnt = con.prepareStatement(sqlStatement);
 			stmnt.setString(1, flightNum);
