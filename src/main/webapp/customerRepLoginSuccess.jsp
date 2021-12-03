@@ -209,7 +209,45 @@ ResultSet set = state.executeQuery(querry);
 </form>
 
 
-</div>
+<div align = left>
+<%
+registerDao rd = new registerDao();
+Connection connection = rd.getConnection();
+Statement ment = connection.createStatement();
+String sql = "SELECT * FROM airport";
+ResultSet answer = ment.executeQuery(sql);
+%>
+<br>
+<h3 align = left>Select Airport to See Flight List</h3>
+<form method = "post" action = flightList.jsp>
+<table border=1 align=left style="text-align:center">
+      <thead>
+          <tr>
+             <th>ID</th>
+          </tr>
+      </thead>
+      <tbody>
+        <%while(answer.next())
+        {
+            %>
+            <tr>
+                <td><input type = "radio" name = "Airport_ID" value =<%=answer.getString("Airport_ID")%>><%=answer.getString("Airport_id")%></td>
+                
+            </tr>
+            <%}%>
+           </tbody>
+        </table>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <br>
+	<input name = "action" type = "submit" value = "Show Flights"><br>
+
+</form>
 
 
 </div>
