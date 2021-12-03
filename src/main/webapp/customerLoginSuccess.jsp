@@ -8,7 +8,7 @@
 <title>Find Flights</title>
 </head>
 <body>
-<h1>Welcome User
+<h1>Welcome <%= request.getParameter("username") %>
 <a href = "logoutSuccess.jsp"><button style="float: right" >Logout</button></a>
 </h1>
 <div><a href = "customerForum.jsp"><button style="float: right">Go to Forum</button></a></div>
