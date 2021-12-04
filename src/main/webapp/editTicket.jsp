@@ -44,9 +44,9 @@
             <tr>
             	
                 <td><input type = "radio" name = "flight_num" value =<%=res.getString("Flight_num")%>><%=res.getString("Flight_num")%></td>
-                <td><input type = "hidden" name = "airlineID" value =<%=res.getString("ID_Airline")%>><%=res.getString("ID_Airline")%></td>
-                <td><input type = "hidden" name = "airportID" value =<%=res.getString("ID_Airport")%>><%=res.getString("ID_Airport")%></td>
-                <td><input type = "hidden" name = "aircraftID" value =<%=res.getString("ID_Aircraft")%>><%=res.getString("ID_Aircraft")%></td>
+                <td><input type = "radio" name = "airlineID" value =<%=res.getString("ID_Airline")%>><%=res.getString("ID_Airline")%></td>
+                <td><input type = "radio" name = "airportID" value =<%=res.getString("ID_Airport")%>><%=res.getString("ID_Airport")%></td>
+                <td><input type = "radio" name = "aircraftID" value =<%=res.getString("ID_Aircraft")%>><%=res.getString("ID_Aircraft")%></td>
                 <td><%=res.getString("Days_operating") %></td>
                 <td><%=res.getString("Departure_Airport") %></td>
                 <td><%=res.getString("Destination_Airport") %></td>
