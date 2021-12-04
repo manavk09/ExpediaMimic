@@ -252,6 +252,61 @@ ResultSet answer = ment.executeQuery(sql);
 
 </div>
 
+<br>
+<div>
+<%
+
+		registerDao da = new registerDao();
+		Connection nn = da.getConnection();
+		Statement m = nn.createStatement();
+		String quer = "SELECT * FROM flight";
+		ResultSet sol = m.executeQuery(s);
+		%>
+		<form method = "post" action = presentWaitList.jsp>
+<table border=1 align=left style="text-align:center">
+      <thead>
+          <tr>
+             <th>Flight Number</th>
+             <th>Airline</th>
+             <th>Airport</th>
+             <th>Aircraft</th>
+             <th>Days Operating</th>
+             <th>Departure Airport</th>
+             <th>Destination Airport</th>
+             <th>Arrival Time</th>
+             <th>Departure Time</th>
+             <th>isDomestic</th>
+             <th>isInternational</th>
+          </tr>
+      </thead>
+      <tbody>
+        <%while(sol.next())
+        {
+            %>
+            <tr>
+            	
+                <td><input type = "radio" name = "flight_num" value =<%=sol.getString("Flight_num")%>><%=sol.getString("Flight_num")%></td>
+                <td><input type = "radio" name = "airlineID" value =<%=sol.getString("ID_Airline")%>><%=sol.getString("ID_Airline")%></td>
+                <td><input type = "hidden" name = "airportID" value =<%=sol.getString("ID_Airport")%>><%=sol.getString("ID_Airport")%></td>
+                <td><input type = "hidden" name = "aircraftID" value =<%=sol.getString("ID_Aircraft")%>><%=sol.getString("ID_Aircraft")%></td>
+                <td><%=sol.getString("Days_operating") %></td>
+                <td><%=sol.getString("Departure_Airport") %></td>
+                <td><%=sol.getString("Destination_Airport") %></td>
+                <td><%=sol.getString("Arrival_Time") %></td>
+                <td><%=sol.getString("Departure_Time") %></td>
+                <td><%=sol.getString("isDomestic") %></td>
+                <td><%=sol.getString("isInternational") %></td>
+                
+            </tr>
+            <%}%>
+           </tbody>
+        </table>
+
+        <br>
+	<input name = "action" type = "submit" value = "View Waiting List"><br>
+</form>
+</div>
+
 <a href = "logoutSuccess.jsp"><button>Logout</button></a>
 </body>
 </html>
