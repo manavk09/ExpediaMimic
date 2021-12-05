@@ -11,13 +11,12 @@
 <%
 	if(request.getParameter("action").equals("Confirm edits")){
 		String username = request.getParameter("username");
-		String oldusername = request.getParameter("oldusername");
+		String oldusername = (String)session.getAttribute("oldusername");
 		String fname = request.getParameter("fName");
 		String lname = request.getParameter("lName");
 		registerDao db = new registerDao();
 		Connection con = db.getConnection();
-		String sqlStatement =
-			"UPDATE user SET Username = ?, FirstName = ?, LastName = ? WHERE Username = ?";
+		String sqlStatement = "UPDATE user SET Username = ?, FirstName = ?, LastName = ? WHERE Username = ?";
 		PreparedStatement stmnt = con.prepareStatement(sqlStatement);
 		stmnt.setString(1, username);
 		stmnt.setString(2, fname);

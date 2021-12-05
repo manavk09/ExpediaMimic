@@ -5,7 +5,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Highest revenue customers</title>
+<style>
+	table, th, td {
+		border: 1px solid black;
+		padding: 2px;
+	}
+</style>
 </head>
 <body>
 	<%
@@ -17,7 +23,7 @@
 	%>
 	<table>
 		<tr>
-			<td>User ID</td><td>Total Revenue</td>
+			<td>User ID</td><td>Total Revenue (dollars)</td>
 		</tr>
 		<%
 			while(result.next()){

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Admin</title>
 </head>
 <body>
 <h1>Welcome! You have successfully logged in as an Admin!</h1>
@@ -43,6 +43,16 @@ ResultSet result = stmt.executeQuery(str);
 
 <form method = "post" action = "summaryListings.jsp">
 	<input type = "submit" value = "Get summary listings of revenue by flight, airline, or customer">
+</form>
+
+<form method = "post" action = "listOfReservations.jsp">
+	<input type = "submit" value = "Get list of reservations by flight or customer">
+</form>
+
+<form method = "post" action = "salesReport.jsp">
+	<label for = "salesReportMonth"> Select month and year for sales report: </label>
+	<input type = "month" id = "salesReportDate" name = "salesReportDate">
+	<input type = "submit" value = "Obtain sales report for selected month and year.">
 </form>
 
 <a href = "logoutSuccess.jsp"><button>Logout</button></a>

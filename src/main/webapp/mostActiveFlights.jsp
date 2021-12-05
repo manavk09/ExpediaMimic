@@ -7,6 +7,12 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<style>
+	table, th, td {
+		border: 1px solid black;
+		padding: 2px;
+	}
+</style>
 </head>
 <body>
 <h1>Most active flights</h1>
@@ -14,13 +20,17 @@
 <%
 	registerDao db = new registerDao();
 	Connection con = db.getConnection();
-	String query = "SELECT Flight_num, idline, idport, idcraft, count(Flight_num) FROM contains GROUP BY Flight_num, idline, idport, idcraft ORDER BY count(Flight_num) DESC";
+	String query = "SELECT f.Flight_num, c.idline, f.Departure_Airport, f.Destination_Airport, count(f.Flight_num) FROM contains c, flight f WHERE c.Flight_num = f.Flight_num and c.idline = f.ID_Airline GROUP BY f.Flight_num, c.idline, f.Departure_Airport, f.Destination_Airport ORDER BY count(Flight_num) DESC";
 	PreparedStatement stmnt = con.prepareStatement(query);
 	ResultSet result = stmnt.executeQuery();
 	%>
 	<table>
 		<tr>
-			<td>Flight number</td><td>Airline</td><td>Airport</td><td>Aircraft</td><td>Tickets sold</td>
+			<th>Flight number</th>
+			<th>Airline</th>
+			<th>Departure airport</th>
+			<th>Arrival airport</th>
+			<th>Tickets sold</th>
 		</tr>
 		<%
 			while(result.next()){
