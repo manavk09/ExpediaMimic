@@ -8,12 +8,21 @@
 <title>Find Flights</title>
 </head>
 <body>
-<%String username = LoginServelet.userName; %>
+<%
+	String username = LoginServelet.userName;
+%>
 <h1>Welcome <%= username %>
 <a href = "logoutSuccess.jsp"><button style="float: right" >Logout</button></a>
 </h1>
 <div><a href = "customerForum.jsp"><button style="float: right">Go to Forum</button></a></div>
-<a><button>View all your reservations</button></a>
+
+<form action = "viewPastCustomerReservations.jsp">
+	<input type = "submit" value = "View your past flight reservations">
+</form>
+
+<form action = "viewUpcomingCustomerReservations.jsp">
+	<input type = "submit" value = "View your upcoming flight reservations">
+</form>
 
 <div>
 	<form action="searchFlights.jsp" method= "post">
