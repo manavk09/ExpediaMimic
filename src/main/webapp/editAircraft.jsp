@@ -12,11 +12,14 @@
 <%
 	String action = request.getParameter("action");
 	if(action.equals("Delete Aircraft")){
-		String aircraftID = request.getParameter("Aircraft_id");
+		String[] inputs = request.getParameter("Aircraft_id").split(",");
+		String AircraftID = inputs[0];
+		String airlineID =  inputs[1];
 		registerDao db = new registerDao();
 		Connection con = db.getConnection();
-		PreparedStatement stmnt = con.prepareStatement("DELETE FROM aircraft WHERE Aircraft_id = ?");
-		stmnt.setString(1, aircraftID);
+		PreparedStatement stmnt = con.prepareStatement("DELETE FROM aircraft WHERE Aircraft_id = ? AND airlineid = ?");
+		stmnt.setString(1, AircraftID);
+		stmnt.setString(2, airlineID);
 		stmnt.executeUpdate();
 		response.sendRedirect("customerRepLoginSuccess.jsp");
 	}

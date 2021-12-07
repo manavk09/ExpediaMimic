@@ -9,9 +9,6 @@
 </head>
 <body>
 <%
-	String username = LoginServelet.userName;
-	session.setAttribute("userType", "Customer");
-	session.setAttribute("customerUsername", username);
 	String backPage;
 	if(session.getAttribute("userType").equals("Customer")){
 		backPage = "customerLoginSuccess.jsp";
