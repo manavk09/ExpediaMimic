@@ -31,6 +31,7 @@
 
 <%
 	String searchType = request.getParameter("search-type");
+	String sortType = request.getParameter("Sort");
 	int flex = 0;
 	if(request.getParameter("flex") != null){
 		flex = 3;
@@ -41,6 +42,17 @@
 	
 	if(searchType.equals("Search One way flights")){
 		PreparedStatement stmt = con.prepareStatement("SELECT * FROM flight where Departure_Airport = ? and Destination_Airport = ? and ABS(DATEDIFF(Departure_Time, ?)) <= ?");
+		switch (sortType){
+			case "Price low to high":
+				stmt = con.prepareStatement("SELECT * FROM flight where Departure_Airport = ? and Destination_Airport = ? and ABS(DATEDIFF(Departure_Time, ?)) <= ? order by Fair");
+				break;
+			case "Price high to low":
+				stmt = con.prepareStatement("SELECT * FROM flight where Departure_Airport = ? and Destination_Airport = ? and ABS(DATEDIFF(Departure_Time, ?)) <= ? order by Fair Desc");
+				break;
+			case "Take off time earlier to later":
+				stmt = con.prepareStatement("SELECT * FROM flight where Departure_Airport = ? and Destination_Airport = ? and ABS(DATEDIFF(Departure_Time, ?)) <= ? order by Departure_Time");
+				break;
+		}
 		stmt.setString(1, request.getParameter("departure-airport"));
 		stmt.setString(2, request.getParameter("destination-airport"));
 		stmt.setString(3, request.getParameter("one_way_date"));
