@@ -13,6 +13,7 @@
 </h1>
 <div align = left>
 <%
+session.setAttribute("userType", "Rep");
 registerDao db = new registerDao();
 Connection con = db.getConnection();
 Statement stmt = con.createStatement();
@@ -20,12 +21,13 @@ String str = "SELECT * FROM aircraft";
 ResultSet result = stmt.executeQuery(str);
 %>
 
-<h3>Adding/Editing/deleting Aircrafts</h3>
+<h3>Adding/Editing/Deleting Aircrafts</h3>
 <form method = "post" action = editAircraft.jsp>
 <table border=1 align=left style="text-align:center">
       <thead>
           <tr>
-             <th>ID</th>
+             <th>Aircraft ID</th>
+             <th>Airline ID</th>
              <th>Number of Seats</th>
              <th>Operating days</th>
           </tr>

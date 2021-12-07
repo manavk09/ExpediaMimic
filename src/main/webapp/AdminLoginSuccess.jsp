@@ -11,21 +11,27 @@
 <h1>Welcome! You have successfully logged in as an Admin!</h1>
 
 <%
+session.setAttribute("userType", "Admin");
 registerDao db = new registerDao();
 Connection con = db.getConnection();
 Statement stmt = con.createStatement();
-String str = "SELECT * FROM user";
+String str = "SELECT * FROM user WHERE Username != 'admin'";
 ResultSet result = stmt.executeQuery(str);
 %>
 
 <form method = "post" action = editUsers.jsp>
+	<h1>Edit users:</h1>
+	<table>
 	<%
 	while(result.next()){%>
+	<tr><td>
 		<input type = "radio" name = "username" value =<%=result.getString(1)%>> <%=result.getString("Username")%>
 		<br>
+	</td></tr>
 	<% }
 	con.close();
 	%>
+	</table>
 	
 	What do you want to do?
 	<input name = "action" type = "submit" value = "Add user"><br>

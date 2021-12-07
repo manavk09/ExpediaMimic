@@ -13,6 +13,7 @@
 	String action = request.getParameter("action");
 	if(action.equals("Book New Ticket")){
 		String userID = request.getParameter("userID");
+		session.setAttribute("customerUsername", userID);
 		registerDao database = new registerDao();
 		Connection conn = database.getConnection();
 		Statement stm = conn.createStatement();

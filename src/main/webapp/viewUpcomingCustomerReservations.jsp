@@ -23,7 +23,7 @@
 <%
 	registerDao db = new registerDao();
 	Connection con = db.getConnection();
-	PreparedStatement stmt = con.prepareStatement("SELECT f.Flight_num, f.ID_Airline, f.Departure_Airport, f.Destination_Airport, f.Departure_Time, f.Arrival_Time FROM flight f, contains c, books b, user u WHERE f.Flight_num = c.Flight_num and c.Ticket_num = b.ticketNum and b.userId = u.Username and u.Username = ? and DATEDIFF(NOW(), f.Departure_Time) <= 0");
+	PreparedStatement stmt = con.prepareStatement("SELECT DISTINCT c.Ticket_num, f.Flight_num, f.ID_Airline, f.Departure_Airport, f.Destination_Airport, f.Departure_Time, f.Arrival_Time FROM flight f, contains c, books b, user u WHERE f.Flight_num = c.Flight_num and c.Ticket_num = b.ticketNum and b.userId = u.Username and u.Username = ? and DATEDIFF(NOW(), f.Departure_Time) <= 0");
 	stmt.setString(1, LoginServelet.userName);
 	ResultSet reservations = stmt.executeQuery();
 	
@@ -34,8 +34,11 @@
 	}
 	else{
 		%>
+		<form action = "deleteTicket.jsp" method = "post">
 		<table>
 			<tr>
+				<th>Selection to cancel</th>
+				<th>Ticket number</th>
 				<th>Flight number</th>
 				<th>Airline</th>
 				<th>Departure Airport</th>
@@ -47,12 +50,14 @@
 			do{
 				%>
 				<tr>
+					<td><input type = "radio" name = "ticketNum" value = <%=reservations.getInt(1)%>></td>
 					<td><%=reservations.getString(1) %></td>
 					<td><%=reservations.getString(2) %></td>
 					<td><%=reservations.getString(3) %></td>
 					<td><%=reservations.getString(4) %></td>
 					<td><%=reservations.getString(5) %></td>
 					<td><%=reservations.getString(6) %></td>
+					<td><%=reservations.getString(7) %></td>
 				</tr>
 				
 				<%
@@ -60,6 +65,7 @@
 			while(reservations.next());
 			%>
 		</table>
+		</form>
 		<%
 	}
 %>
