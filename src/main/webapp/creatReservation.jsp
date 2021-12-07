@@ -11,6 +11,7 @@
 <div align = left>
 <%
 String userID = request.getParameter("user");
+session.setAttribute("customerUsername",userID);
 registerDao dao = new registerDao();
 Connection connect = dao.getConnection();
 Statement state = connect.createStatement();

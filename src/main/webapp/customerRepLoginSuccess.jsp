@@ -37,7 +37,8 @@ ResultSet result = stmt.executeQuery(str);
         {
             %>
             <tr>
-                <td><input type = "radio" name = "Aircraft_id" value =<%=result.getString("Aircraft_id")%>><%=result.getString("Aircraft_id")%></td>
+                <td><input type = "radio" name = "Aircraft_id" value =<%=result.getString("Aircraft_id")+","+result.getString("airlineid")%>><%=result.getString("Aircraft_id")%></td>
+                <td><%=result.getString("airlineid") %></td>
                 <td><%=result.getString("num_seats") %></td>
                 <td><%=result.getString("operating_days") %></td>
             </tr>
@@ -122,15 +123,13 @@ ResultSet res = stm.executeQuery(s);
           <tr>
              <th>Flight Number</th>
              <th>Airline</th>
-             <th>Airport</th>
              <th>Aircraft</th>
-             <th>Days Operating</th>
              <th>Departure Airport</th>
              <th>Destination Airport</th>
-             <th>Arrival Time</th>
              <th>Departure Time</th>
-             <th>isDomestic</th>
-             <th>isInternational</th>
+             <th>Arrival Time</th>
+             <th>Fair</th>
+             <th>Travel Type</th>
           </tr>
       </thead>
       <tbody>
@@ -138,17 +137,15 @@ ResultSet res = stm.executeQuery(s);
         {
             %>
             <tr>
-                <td><input type = "radio" name = "flight_num" value =<%=res.getString("Flight_num")%>><%=res.getString("Flight_num")%></td>
+                <td><input type = "radio" name = "flight_num" value =<%=res.getString("Flight_num")+","+res.getString("ID_Airline")%>><%=res.getString("Flight_num")%></td>
                 <td><%=res.getString("ID_Airline") %></td>
-                <td><%=res.getString("ID_Airport") %></td>
                 <td><%=res.getString("ID_Aircraft") %></td>
-                <td><%=res.getString("Days_operating") %></td>
                 <td><%=res.getString("Departure_Airport") %></td>
                 <td><%=res.getString("Destination_Airport") %></td>
-                <td><%=res.getString("Arrival_Time") %></td>
                 <td><%=res.getString("Departure_Time") %></td>
-                <td><%=res.getString("isDomestic") %></td>
-                <td><%=res.getString("isInternational") %></td>
+                <td><%=res.getString("Arrival_Time") %></td>
+                <td><%=res.getString("Fair") %></td>
+                <td><%=res.getString("travelType") %></td>
                 
             </tr>
             <%}%>
@@ -264,21 +261,20 @@ ResultSet answer = ment.executeQuery(sql);
 		String quer = "SELECT * FROM flight";
 		ResultSet sol = m.executeQuery(s);
 		%>
+		<h3 align = left>Select Flight to see waiting List</h3>
 		<form method = "post" action = presentWaitList.jsp>
 <table border=1 align=left style="text-align:center">
       <thead>
           <tr>
              <th>Flight Number</th>
              <th>Airline</th>
-             <th>Airport</th>
              <th>Aircraft</th>
-             <th>Days Operating</th>
              <th>Departure Airport</th>
              <th>Destination Airport</th>
-             <th>Arrival Time</th>
              <th>Departure Time</th>
-             <th>isDomestic</th>
-             <th>isInternational</th>
+             <th>Arrival Time</th>
+             <th>Fair</th>
+             <th>Travel Type</th>
           </tr>
       </thead>
       <tbody>
@@ -287,17 +283,15 @@ ResultSet answer = ment.executeQuery(sql);
             %>
             <tr>
             	
-                <td><input type = "radio" name = "flight_num" value =<%=sol.getString("Flight_num")%>><%=sol.getString("Flight_num")%></td>
-                <td><input type = "radio" name = "airlineID" value =<%=sol.getString("ID_Airline")%>><%=sol.getString("ID_Airline")%></td>
-                <td><input type = "hidden" name = "airportID" value =<%=sol.getString("ID_Airport")%>><%=sol.getString("ID_Airport")%></td>
-                <td><input type = "hidden" name = "aircraftID" value =<%=sol.getString("ID_Aircraft")%>><%=sol.getString("ID_Aircraft")%></td>
-                <td><%=sol.getString("Days_operating") %></td>
+                <td><input type = "radio" name = "flight_num" value =<%=sol.getString("Flight_num")+","+sol.getString("ID_Airline")+","+sol.getString("ID_Aircraft")%>><%=sol.getString("Flight_num")%></td>
+                <td><%=sol.getString("ID_Airline")%></td>
+                <td><%=sol.getString("ID_Aircraft")%></td>
                 <td><%=sol.getString("Departure_Airport") %></td>
                 <td><%=sol.getString("Destination_Airport") %></td>
-                <td><%=sol.getString("Arrival_Time") %></td>
                 <td><%=sol.getString("Departure_Time") %></td>
-                <td><%=sol.getString("isDomestic") %></td>
-                <td><%=sol.getString("isInternational") %></td>
+                <td><%=sol.getString("Arrival_Time") %></td>
+                <td><%=sol.getString("Fair") %></td>
+                <td><%=sol.getString("travelType") %></td>
                 
             </tr>
             <%}%>
