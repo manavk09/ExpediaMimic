@@ -11,16 +11,16 @@
 
 <div align = left>
 <%
-String flightNum = request.getParameter("flight_num");
-String airline = request.getParameter("airlineID");
+String[]inputs = request.getParameter("flight_num").split(",");
+String flightNum = inputs[0];
+String airline = inputs[1];
 registerDao db = new registerDao();
 Connection con = db.getConnection();
 Statement stmt = con.createStatement();
 String str = "SELECT userid FROM waitinglist where flightnum = '"+flightNum+"' and flightairline = '"+airline+"'";
 ResultSet result = stmt.executeQuery(str);
 %>
-<%=airline %>
-<%=flightNum %>
+
 <table border=1 align=left style="text-align:center">
       <thead>
           <tr>
@@ -41,6 +41,6 @@ ResultSet result = stmt.executeQuery(str);
            </tbody>
         </table>
 </div>
-
+<a href = "customerRepLoginSuccess.jsp"><button>Go back</button></a>
 </body>
 </html>

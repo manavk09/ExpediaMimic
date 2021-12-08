@@ -24,15 +24,13 @@ ResultSet res = stm.executeQuery(s);
           <tr>
              <th>Flight Number</th>
              <th>Airline</th>
-             <th>Airport</th>
              <th>Aircraft</th>
-             <th>Days Operating</th>
              <th>Departure Airport</th>
              <th>Destination Airport</th>
-             <th>Arrival Time</th>
              <th>Departure Time</th>
-             <th>isDomestic</th>
-             <th>isInternational</th>
+             <th>Arrival Time</th>
+             <th>Fair</th>
+             <th>Travel Type</th>
           </tr>
       </thead>
       <tbody>
@@ -40,17 +38,15 @@ ResultSet res = stm.executeQuery(s);
         {
             %>
             <tr>
-                <td><%=res.getString("Flight_num")%></td>
+               <td><%=res.getString("Flight_num")%></td>
                 <td><%=res.getString("ID_Airline") %></td>
-                <td><%=res.getString("ID_Airport") %></td>
                 <td><%=res.getString("ID_Aircraft") %></td>
-                <td><%=res.getString("Days_operating") %></td>
                 <td><%=res.getString("Departure_Airport") %></td>
                 <td><%=res.getString("Destination_Airport") %></td>
-                <td><%=res.getString("Arrival_Time") %></td>
                 <td><%=res.getString("Departure_Time") %></td>
-                <td><%=res.getString("isDomestic") %></td>
-                <td><%=res.getString("isInternational") %></td>
+                <td><%=res.getString("Arrival_Time") %></td>
+                <td><%=res.getString("Fair") %></td>
+                <td><%=res.getString("travelType") %></td>
                 
             </tr>
             <%}%>

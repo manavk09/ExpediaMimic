@@ -113,7 +113,7 @@
 		String airline1 = roundTripInfo[1];
 		String aircraft1 = roundTripInfo[2];
 		String fair1 = roundTripInfo[3];
-		String username = LoginServelet.userName;
+		String username = (String)session.getAttribute("customerUsername");
 		String flightNum2 = roundTripInfo[4];
 		String airline2 = roundTripInfo[5];
 		String aircraft2 = roundTripInfo[6];
