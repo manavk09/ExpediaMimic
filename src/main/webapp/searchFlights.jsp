@@ -69,7 +69,38 @@
   				<option value="Landing time later to earlier">Landing time later to earlier</option>
   				<option value="Duration of flights shortest">Duration of flights shortest</option>
   				<option value="Duration of flights longest">Duration of flights longest</option>
-</select>
+			</select>
+		</div>
+		<div>
+			<table>
+				<tr>
+					<th>Selection</th>
+					<th>Filter Type</th>
+				</tr>
+				<tr>
+					<td><input type = "radio" name = "Filter-Type" value="price"></td>
+					<td><label>Total fare: </label>
+					<td><input placeholder = "Minimum total fare price" type="number" name= "price-min"></td>
+					<td><input placeholder = "Maximum total fare price" type="number" name= "price-max"></td>
+				</tr>
+				<tr>
+					<td><input type = "radio" name = "Filter-Type" value="airline"></td>
+					<td><label>Airline: </label>
+					<td><input placeholder = "Airline ID" type="text" name= "airline-id"></td>
+				</tr>
+				<tr>
+					<td><input type = "radio" name = "Filter-Type" value="take-off-time"></td>
+					<td><label>Take off time: </label>
+					<td><input placeholder = "Minimum take off time" type="time" name= "min-take-off-time"></td>
+					<td><input placeholder = "Maximum take off time" type="time" name= "max-take-off-time"></td>
+				</tr>
+				<tr>
+					<td><input type = "radio" name = "Filter-Type" value="landing-time"></td>
+					<td><label>Landing Time: </label>
+					<td><input placeholder = "Minimum landing time" type="time" name= "min-landing-time"></td>
+					<td><input placeholder = "Maximum landing time" type="time" name= "max-landing-time"></td>
+				</tr>
+			</table>
 		</div>
 	</form>
 </div>

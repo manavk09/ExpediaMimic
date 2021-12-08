@@ -9,6 +9,7 @@
 <style>
 	table, th, td {
 		border: 1px solid black;
+		border-collapse: collapse;
 		padding: 2px;
 	}
 </style>
@@ -39,35 +40,50 @@
 	
 	registerDao db = new registerDao();
 	Connection con = db.getConnection();
-	
+	String query;
 	if(searchType.equals("Search One way flights")){
-		PreparedStatement stmt = con.prepareStatement("SELECT * FROM flight where Departure_Airport = ? and Destination_Airport = ? and ABS(DATEDIFF(Departure_Time, ?)) <= ?");
+		query = "SELECT * FROM flight where Departure_Airport = ? and Destination_Airport = ? and ABS(DATEDIFF(Departure_Time, ?)) <= ?";
+		if(request.getParameter("Filter-Type") != null){
+			switch(request.getParameter("Filter-Type")){
+				case "price" :
+					query += " where Fair >= " + request.getParameter("price-min") + " and Fair <= " + request.getParameter("price-max");
+					break;
+				case "airline" :
+					query += " where ID_Airline = " + request.getParameter("airline-id");
+					break;
+				case "take-off-time" :
+					break;
+				case "landing-time" :
+					break;
+			}
+		}
 		switch (sortType){
 			case "Price low to high":
-				stmt = con.prepareStatement("SELECT * FROM flight where Departure_Airport = ? and Destination_Airport = ? and ABS(DATEDIFF(Departure_Time, ?)) <= ? order by Fair");
+				query += " order by Fair";
 				break;
 			case "Price high to low":
-				stmt = con.prepareStatement("SELECT * FROM flight where Departure_Airport = ? and Destination_Airport = ? and ABS(DATEDIFF(Departure_Time, ?)) <= ? order by Fair Desc");
+				query += " order by Fair Desc";
 				break;
 			case "Take off time earlier to later":
-				stmt = con.prepareStatement("SELECT * FROM flight where Departure_Airport = ? and Destination_Airport = ? and ABS(DATEDIFF(Departure_Time, ?)) <= ? order by Departure_Time");
+				query += " order by Departure_Time";
 				break;
 			case "Take off time later to earlier":
-				stmt = con.prepareStatement("SELECT * FROM flight where Departure_Airport = ? and Destination_Airport = ? and ABS(DATEDIFF(Departure_Time, ?)) <= ? order by Departure_Time Desc");
+				query += " order by Departure_Time Desc";
 				break;
 			case "Landing time earlier to later":
-				stmt = con.prepareStatement("SELECT * FROM flight where Departure_Airport = ? and Destination_Airport = ? and ABS(DATEDIFF(Departure_Time, ?)) <= ? order by Arrival_Time");
+				query += " order by Arrival_Time";
 				break;
 			case "Landing time later to earlier":
-				stmt = con.prepareStatement("SELECT * FROM flight where Departure_Airport = ? and Destination_Airport = ? and ABS(DATEDIFF(Departure_Time, ?)) <= ? order by Arrival_Time Desc");
+				query += " order by Arrival_Time Desc";
 				break;
 			case "Duration of flights shortest":
-				stmt = con.prepareStatement("SELECT * FROM flight where Departure_Airport = ? and Destination_Airport = ? and ABS(DATEDIFF(Departure_Time, ?)) <= ? order by TIMEDIFF(Arrival_Time,Departure_Time)");
+				query += " order by TIMEDIFF(Arrival_Time,Departure_Time)";
 				break;
 			case "Duration of flights longest":
-				stmt = con.prepareStatement("SELECT * FROM flight where Departure_Airport = ? and Destination_Airport = ? and ABS(DATEDIFF(Departure_Time, ?)) <= ? order by TIMEDIFF(Arrival_Time,Departure_Time) Desc");
+				query += " order by TIMEDIFF(Arrival_Time,Departure_Time) Desc";
 				break;
 		}
+		PreparedStatement stmt = con.prepareStatement(query);
 		stmt.setString(1, request.getParameter("departure-airport"));
 		stmt.setString(2, request.getParameter("destination-airport"));
 		stmt.setString(3, request.getParameter("one_way_date"));
@@ -131,33 +147,48 @@
 		}
 	}
 	else{
-		PreparedStatement stmt = con.prepareStatement("SELECT * FROM(SELECT * FROM flight WHERE Departure_Airport = ? and Destination_Airport = ? and ABS(DATEDIFF(Departure_Time, ?)) <= ?) as f1, flight f2 WHERE f2.Departure_Airport = ? and f2.Destination_Airport = ? and ABS(DATEDIFF(f2.Arrival_Time, ?)) <= ? and DATEDIFF(f1.Arrival_Time, f2.Departure_Time) < 0");
+		query = "SELECT * FROM(SELECT * FROM flight WHERE Departure_Airport = ? and Destination_Airport = ? and ABS(DATEDIFF(Departure_Time, ?)) <= ?) as f1, flight f2 WHERE f2.Departure_Airport = ? and f2.Destination_Airport = ? and ABS(DATEDIFF(f2.Arrival_Time, ?)) <= ? and DATEDIFF(f1.Arrival_Time, f2.Departure_Time) < 0";
+		if(request.getParameter("Filter-Type") != null){
+			switch(request.getParameter("Filter-Type")){
+				case "price" :
+					query += " where (f1.Fair + f2.Fair) >= " + request.getParameter("price-min") + " and (f1.Fair + f2.Fair) <= " + request.getParameter("price-max");
+					break;
+				case "airline" :
+					query += " where f1.ID_Airline = " + request.getParameter("airline-id") + " and f2.ID_Airline = " + request.getParameter("airline-id");
+					break;
+				case "take-off-time" :
+					break;
+				case "landing-time" :
+					break;
+			}
+		}
 		switch (sortType){
 			case "Price low to high":
-				stmt = con.prepareStatement("SELECT * FROM(SELECT * FROM flight WHERE Departure_Airport = ? and Destination_Airport = ? and ABS(DATEDIFF(Departure_Time, ?)) <= ?) as f1, flight f2 WHERE f2.Departure_Airport = ? and f2.Destination_Airport = ? and ABS(DATEDIFF(f2.Arrival_Time, ?)) <= ? and DATEDIFF(f1.Arrival_Time, f2.Departure_Time) < 0 order by (f1.Fair + f2.Fair)");
+				query += " order by (f1.Fair + f2.Fair)";
 				break;
 			case "Price high to low":
-				stmt = con.prepareStatement("SELECT * FROM(SELECT * FROM flight WHERE Departure_Airport = ? and Destination_Airport = ? and ABS(DATEDIFF(Departure_Time, ?)) <= ?) as f1, flight f2 WHERE f2.Departure_Airport = ? and f2.Destination_Airport = ? and ABS(DATEDIFF(f2.Arrival_Time, ?)) <= ? and DATEDIFF(f1.Arrival_Time, f2.Departure_Time) < 0 order by (f1.Fair + f2.Fair) Desc");
+				query += " order by (f1.Fair + f2.Fair) Desc";
 				break;
 			case "Take off time earlier to later":
-				stmt = con.prepareStatement("SELECT * FROM(SELECT * FROM flight WHERE Departure_Airport = ? and Destination_Airport = ? and ABS(DATEDIFF(Departure_Time, ?)) <= ?) as f1, flight f2 WHERE f2.Departure_Airport = ? and f2.Destination_Airport = ? and ABS(DATEDIFF(f2.Arrival_Time, ?)) <= ? and DATEDIFF(f1.Arrival_Time, f2.Departure_Time) < 0 order by f1.Departure_Time");
+				query += " order by f1.Departure_Time";
 				break;
 			case "Take off time later to earlier":
-				stmt = con.prepareStatement("SELECT * FROM(SELECT * FROM flight WHERE Departure_Airport = ? and Destination_Airport = ? and ABS(DATEDIFF(Departure_Time, ?)) <= ?) as f1, flight f2 WHERE f2.Departure_Airport = ? and f2.Destination_Airport = ? and ABS(DATEDIFF(f2.Arrival_Time, ?)) <= ? and DATEDIFF(f1.Arrival_Time, f2.Departure_Time) < 0 order by f1.Departure_Time Desc");
+				query += " order by f1.Departure_Time Desc";
 				break;
 			case "Landing time earlier to later":
-				stmt = con.prepareStatement("SELECT * FROM(SELECT * FROM flight WHERE Departure_Airport = ? and Destination_Airport = ? and ABS(DATEDIFF(Departure_Time, ?)) <= ?) as f1, flight f2 WHERE f2.Departure_Airport = ? and f2.Destination_Airport = ? and ABS(DATEDIFF(f2.Arrival_Time, ?)) <= ? and DATEDIFF(f1.Arrival_Time, f2.Departure_Time) < 0 order by f2.Arrival_Time");
+				query += " order by f2.Arrival_Time";
 				break;
 			case "Landing time later to earlier":
-				stmt = con.prepareStatement("SELECT * FROM(SELECT * FROM flight WHERE Departure_Airport = ? and Destination_Airport = ? and ABS(DATEDIFF(Departure_Time, ?)) <= ?) as f1, flight f2 WHERE f2.Departure_Airport = ? and f2.Destination_Airport = ? and ABS(DATEDIFF(f2.Arrival_Time, ?)) <= ? and DATEDIFF(f1.Arrival_Time, f2.Departure_Time) < 0 order by f2.Arrival_Time Desc");
+				query += " order by f2.Arrival_Time Desc";
 				break;
 			case "Duration of flights shortest":
-				stmt = con.prepareStatement("SELECT * FROM(SELECT * FROM flight WHERE Departure_Airport = ? and Destination_Airport = ? and ABS(DATEDIFF(Departure_Time, ?)) <= ?) as f1, flight f2 WHERE f2.Departure_Airport = ? and f2.Destination_Airport = ? and ABS(DATEDIFF(f2.Arrival_Time, ?)) <= ? and DATEDIFF(f1.Arrival_Time, f2.Departure_Time) < 0 order by (TIMEDIFF(f1.Arrival_Time,f1.Departure_Time) + TIMEDIFF(f2.Arrival_Time,f2.Departure_Time))");
+				query += " order by (TIMEDIFF(f1.Arrival_Time,f1.Departure_Time) + TIMEDIFF(f2.Arrival_Time,f2.Departure_Time))";
 				break;
 			case "Duration of flights longest":
-				stmt = con.prepareStatement("SELECT * FROM(SELECT * FROM flight WHERE Departure_Airport = ? and Destination_Airport = ? and ABS(DATEDIFF(Departure_Time, ?)) <= ?) as f1, flight f2 WHERE f2.Departure_Airport = ? and f2.Destination_Airport = ? and ABS(DATEDIFF(f2.Arrival_Time, ?)) <= ? and DATEDIFF(f1.Arrival_Time, f2.Departure_Time) < 0 order by (TIMEDIFF(f1.Arrival_Time,f1.Departure_Time) + TIMEDIFF(f2.Arrival_Time,f2.Departure_Time)) Desc");
+				query += " order by (TIMEDIFF(f1.Arrival_Time,f1.Departure_Time) + TIMEDIFF(f2.Arrival_Time,f2.Departure_Time)) Desc";
 				break;
 		}
+		PreparedStatement stmt = con.prepareStatement(query);
 		stmt.setString(1, request.getParameter("departure-airport"));
 		stmt.setString(2, request.getParameter("destination-airport"));
 		stmt.setString(3, request.getParameter("roundtrip_date1"));
