@@ -135,7 +135,7 @@
 	<input type = "submit" value = "View your upcoming flight reservations">
 </form>
 
-<form action = "SearchFlights.jsp" method = "post">
+<form action = "searchFlights.jsp" method = "post">
 	<input type = "submit" value = "Search for flights">
 </form>
 </body>

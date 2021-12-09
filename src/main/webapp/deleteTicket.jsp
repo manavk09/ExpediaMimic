@@ -12,9 +12,11 @@
 <%
 	registerDao db = new registerDao();
 	Connection con = db.getConnection();
-	String query = "DELETE FROM ticket WHERE (`Ticket_num` = '?')";
+	String query = "DELETE FROM ticket WHERE Ticket_num = ?";
 	PreparedStatement ps = con.prepareStatement(query);
-	ps.setInt(1, Integer.parseInt(request.getParameter("ticketNum")));
+	ps.setString(1, request.getParameter("ticketNum"));
+	ps.executeUpdate();
+	response.sendRedirect("viewUpcomingCustomerReservations.jsp");
 %>
 
 </body>
