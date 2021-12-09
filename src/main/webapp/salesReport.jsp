@@ -7,6 +7,12 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Sales report</title>
+<style>
+	table, th, td {
+		border: 1px solid black;
+		padding: 2px;
+	}
+</style>
 </head>
 <body>
 	<form method = "post" action = "AdminLoginSuccess.jsp">

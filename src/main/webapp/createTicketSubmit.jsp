@@ -96,10 +96,11 @@
 		else{
 			//Add to waiting list
 			ps.close();
-			ps = con.prepareStatement("Insert into waitinglist values(?,?,?)");
+			ps = con.prepareStatement("Insert into waitinglist values(?,?,?,?)");
 			ps.setString(1, username);
 			ps.setInt(2, Integer.parseInt(flightNum));
 			ps.setString(3, airline);
+			ps.setString(4, request.getParameter("class"));
 			ps.executeUpdate();
 		}
 		response.sendRedirect(backPage);
@@ -205,10 +206,11 @@
 		else{
 			//Add to waiting list
 			ps.close();
-			ps = con.prepareStatement("Insert into waitinglist values(?,?,?)");
+			ps = con.prepareStatement("Insert into waitinglist values(?,?,?,?)");
 			ps.setString(1, username);
 			ps.setInt(2, Integer.parseInt(flightNum1));
 			ps.setString(3, airline1);
+			ps.setString(4, request.getParameter("class"));
 			ps.executeUpdate();
 		}
 		response.sendRedirect(backPage);

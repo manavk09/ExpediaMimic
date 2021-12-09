@@ -46,14 +46,16 @@
 		if(request.getParameter("Filter-Type") != null){
 			switch(request.getParameter("Filter-Type")){
 				case "price" :
-					query += " where Fair >= " + request.getParameter("price-min") + " and Fair <= " + request.getParameter("price-max");
+					query += " and Fair >= " + request.getParameter("price-min") + " and Fair <= " + request.getParameter("price-max");
 					break;
 				case "airline" :
-					query += " where ID_Airline = " + request.getParameter("airline-id");
+					query += " and ID_Airline = " + request.getParameter("airline-id");
 					break;
 				case "take-off-time" :
+					query += " and TIMEDIFF(TIME(Departure_Time), '" + request.getParameter("min-take-off-time") + "') >= 0 and TIMEDIFF(TIME(Departure_Time), '" + request.getParameter("max-take-off-time") + "') <= 0";
 					break;
 				case "landing-time" :
+					query += " and TIMEDIFF(TIME(Arrival_Time), '" + request.getParameter("min-landing-time") + "') >= 0 and TIMEDIFF(TIME(Arrival_Time), '" + request.getParameter("max-landing-time") + "') <= 0";
 					break;
 			}
 		}
@@ -151,14 +153,16 @@
 		if(request.getParameter("Filter-Type") != null){
 			switch(request.getParameter("Filter-Type")){
 				case "price" :
-					query += " where (f1.Fair + f2.Fair) >= " + request.getParameter("price-min") + " and (f1.Fair + f2.Fair) <= " + request.getParameter("price-max");
+					query += " and (f1.Fair + f2.Fair) >= " + request.getParameter("price-min") + " and (f1.Fair + f2.Fair) <= " + request.getParameter("price-max");
 					break;
 				case "airline" :
-					query += " where f1.ID_Airline = " + request.getParameter("airline-id") + " and f2.ID_Airline = " + request.getParameter("airline-id");
+					query += " and f1.ID_Airline = " + request.getParameter("airline-id") + " and f2.ID_Airline = " + request.getParameter("airline-id");
 					break;
 				case "take-off-time" :
+					query += " and TIMEDIFF(TIME(f1.Departure_Time), '" + request.getParameter("min-take-off-time") + "') >= 0 and TIMEDIFF(TIME(f1.Departure_Time), '" + request.getParameter("max-take-off-time") + "') <= 0";
 					break;
 				case "landing-time" :
+					query += " and TIMEDIFF(TIME(f2.Arrival_Time), '" + request.getParameter("min-landing-time") + "') >= 0 and TIMEDIFF(TIME(f2.Arrival_Time), '" + request.getParameter("max-landing-time") + "') <= 0";
 					break;
 			}
 		}
