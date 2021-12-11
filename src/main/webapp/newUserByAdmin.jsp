@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Customer Resgistration</h1>
+<h1>Customer Registration</h1>
 <form action="newUserByAdminScript.jsp" method ="post">
 	<table>
 	<tr><td>User Name: </td><td><input type="text" name="userName"></td></tr>
@@ -23,6 +23,9 @@
 	</tr>
 	<tr><td></td><td><input type="submit" value="Register"></td></tr>
 	</table>
+</form>
+<form action = "AdminLoginSuccess.jsp" method = "post">
+	<input type = "submit" value = "Back">
 </form>
 </body>
 </html>

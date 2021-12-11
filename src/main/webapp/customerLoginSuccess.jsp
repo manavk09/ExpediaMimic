@@ -39,9 +39,11 @@
 	}
 	else{
 		%>
+		<form action = "removeFromWaitingList.jsp" method = "post">
 		<h1>All your waiting list flights:</h1>
 		<table>
 		<tr>
+			<th>Selection</th>
 			<th>Class</th>
 			<th>Flight number</th>
 			<th>Airline</th>
@@ -57,6 +59,7 @@
 		do{
 			%>
 			<tr>
+				<td><input type = "radio" name = "itemInfo" value = <%=waitingListResults.getString(2) + "," + waitingListResults.getString(3)%>></td>
 				<td><%=waitingListResults.getString(1)%></td>
 				<td><%=waitingListResults.getString(2)%></td>
 				<td><%=waitingListResults.getString(3)%></td>
@@ -73,6 +76,8 @@
 		while(waitingListResults.next());
 		%>
 		</table>
+		<input type = "submit" value = "Remove flight from waiting list">
+		</form>
 		<%
 	}
 	

@@ -46,6 +46,7 @@
 %>
 
 <div class = "top-bar">
+	<a href= "customerLoginSuccess.jsp"><button style = "float: right">Back</button></a>
 	<form method = "post" action = searchForum.jsp>
 		<h1>
 			Website Forum

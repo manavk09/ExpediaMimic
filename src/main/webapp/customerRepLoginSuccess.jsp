@@ -11,6 +11,7 @@
 <h1>Welcome! You have successfully logged in as a Customer Representative!
 <a href = "repForum.jsp" ><button style = "float: right">Go to Answer Forum Questions</button></a>
 </h1>
+<a href = "logoutSuccess.jsp"><button>Logout</button></a>
 <div align = left>
 <%
 session.setAttribute("userType", "Rep");
@@ -23,7 +24,7 @@ ResultSet result = stmt.executeQuery(str);
 
 <h3>Adding/Editing/Deleting Aircrafts</h3>
 <form method = "post" action = editAircraft.jsp>
-<table border=1 align=left style="text-align:center">
+<table border=1 style="text-align:center">
       <thead>
           <tr>
              <th>Aircraft ID</th>
@@ -45,15 +46,6 @@ ResultSet result = stmt.executeQuery(str);
             <%}%>
            </tbody>
         </table>
-         <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
         What do you want to do?
         <br>
 	<input name = "action" type = "submit" value = "Add Aircraft"><br>
@@ -75,7 +67,7 @@ ResultSet r = st.executeQuery(strk);
 <br>
 <h3 align = left>Adding/Editing/deleting Airport</h3>
 <form method = "post" action = editAirport.jsp>
-<table border=1 align=left style="text-align:center">
+<table border=1 style="text-align:center">
       <thead>
           <tr>
              <th>ID</th>
@@ -92,12 +84,6 @@ ResultSet r = st.executeQuery(strk);
             <%}%>
            </tbody>
         </table>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
         What do you want to do?
         <br>
 	<input name = "action" type = "submit" value = "Add Airport"><br>
@@ -118,7 +104,7 @@ ResultSet res = stm.executeQuery(s);
 %>
 <h3>Adding/Editing/deleting Flights</h3>
 <form method = "post" action = editFlight.jsp>
-<table border=1 align=left style="text-align:center">
+<table border=1 style="text-align:center">
       <thead>
           <tr>
              <th>Flight Number</th>
@@ -175,7 +161,7 @@ ResultSet set = state.executeQuery(querry);
 <br>
 <h3 align = left>Make and Edit Reservation for users!</h3>
 <form method = "post" action = creatReservation.jsp>
-<table border=1 align=left style="text-align:center">
+<table border=1 style="text-align:center">
       <thead>
           <tr>
              <th>Users</th>
@@ -193,14 +179,6 @@ ResultSet set = state.executeQuery(querry);
            </tbody>
         </table>
           <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
         What do you want to do?
         <br>
 	<input name = "action" type = "submit" value = "Make/Edit Reservation"><br>
@@ -219,7 +197,7 @@ ResultSet answer = ment.executeQuery(sql);
 <br>
 <h3 align = left>Select Airport to See Flight List</h3>
 <form method = "post" action = flightList.jsp>
-<table border=1 align=left style="text-align:center">
+<table border=1 style="text-align:center">
       <thead>
           <tr>
              <th>ID</th>
@@ -236,14 +214,6 @@ ResultSet answer = ment.executeQuery(sql);
             <%}%>
            </tbody>
         </table>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-
-        <br>
 	<input name = "action" type = "submit" value = "Show Flights"><br>
 
 </form>
@@ -263,7 +233,7 @@ ResultSet answer = ment.executeQuery(sql);
 		%>
 		<h3 align = left>Select Flight to see waiting List</h3>
 		<form method = "post" action = presentWaitList.jsp>
-<table border=1 align=left style="text-align:center">
+<table border=1 style="text-align:center">
       <thead>
           <tr>
              <th>Flight Number</th>
@@ -302,7 +272,5 @@ ResultSet answer = ment.executeQuery(sql);
 	<input name = "action" type = "submit" value = "View Waiting List"><br>
 </form>
 </div>
-
-<a href = "logoutSuccess.jsp"><button>Logout</button></a>
 </body>
 </html>

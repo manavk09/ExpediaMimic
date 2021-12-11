@@ -11,7 +11,7 @@
 <body>
 <%
 	if(request.getParameter("action").equals("Confirm edits")){
-		String ticketNum = request.getParameter("ticketNumber");
+		String ticketNum = (String)session.getAttribute("ticketNum");
 		String fair = request.getParameter("fair");
 		String bookingFees = request.getParameter("bookingFees");
 		String purchaseDate = request.getParameter("purchaseDate");
@@ -23,16 +23,13 @@
 		registerDao db = new registerDao();
 		Connection con = db.getConnection();
 		String sqlStatement =
-			"UPDATE ticket SET Fair = ?, Booking_Fees = ?, Purchase_Date = ?, IsOne_Way = ?, Is_Round = ?, Class = ?, SeatNum = ? WHERE Ticket_num = ?";
+			"UPDATE ticket SET Fair = ?, Booking_Fees = ?, Class = ?, SeatNum = ? WHERE Ticket_num = ?";
 		PreparedStatement stmnt = con.prepareStatement(sqlStatement);
 		stmnt.setString(1, fair);
 		stmnt.setString(2, bookingFees);
-		stmnt.setString(3, purchaseDate);
-		stmnt.setString(4, isOne);
-		stmnt.setString(5, isRound);
-		stmnt.setString(6, ticketClass);
-		stmnt.setString(7, seatNum);
-		stmnt.setString(8, ticketNum);
+		stmnt.setString(3, ticketClass);
+		stmnt.setString(4, seatNum);
+		stmnt.setString(5, ticketNum);
 		stmnt.executeUpdate();
 	}
 	response.sendRedirect("customerRepLoginSuccess.jsp");

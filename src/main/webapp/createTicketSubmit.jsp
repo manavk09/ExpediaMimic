@@ -11,6 +11,16 @@
 </head>
 <body>
 <%
+	int classCost;
+	if(request.getParameter("class").equals("First")){
+		classCost = 100;
+	}
+	else if(request.getParameter("class").equals("Business")){
+		classCost = 50;
+	}
+	else{
+		classCost = 0;
+	}
 	String backPage;
 	if(session.getAttribute("userType").equals("Customer")){
 		backPage = "customerLoginSuccess.jsp";
@@ -28,7 +38,7 @@
 		String flightNum = roundTripInfo[0];
 		String airline = roundTripInfo[1];
 		String aircraft = roundTripInfo[2];
-		int fair = Integer.parseInt(roundTripInfo[3]);
+		int fair = Integer.parseInt(roundTripInfo[3]) + classCost;
 		String username = (String)session.getAttribute("customerUsername");
 		
 		//Generate ticket number
@@ -92,6 +102,14 @@
 			ps.setInt(1, ticketNum);
 			ps.setString(2, username);
 			ps.executeUpdate();
+			
+			//Delete from waiting list if it's in there
+			String queryDelete = "DELETE FROM waitinglist WHERE userid = ? and flightnum = ? and flightairline = ?";
+			ps = con.prepareStatement(queryDelete);
+			ps.setString(1, username);
+			ps.setString(2, flightNum);
+			ps.setString(3, airline);
+			ps.executeUpdate();
 		}
 		else{
 			//Add to waiting list
@@ -119,7 +137,7 @@
 		String airline2 = roundTripInfo[5];
 		String aircraft2 = roundTripInfo[6];
 		String fair2 = roundTripInfo[7];
-		int totalFair = Integer.parseInt(fair1) + Integer.parseInt(fair2);
+		int totalFair = Integer.parseInt(fair1) + Integer.parseInt(fair2) + classCost*2;
 		
 		//Generate ticket number
 		int max = 100;
@@ -174,7 +192,7 @@
 			ps = con.prepareStatement("Insert into ticket values(?, ?, ?, ?, ?, ?, ?, ?)");
 			ps.setInt(1, ticketNum);
 			ps.setInt(2, totalFair);
-			ps.setInt(3, bookingFees);
+			ps.setInt(3, bookingFees * 2);
 			java.util.Date jDate = new java.util.Date();
 			java.sql.Date purchaseDate = new java.sql.Date(jDate.getTime());
 			ps.setDate(4, purchaseDate);
@@ -201,6 +219,19 @@
 			ps = con.prepareStatement("Insert into books values(?, ?)");
 			ps.setInt(1, ticketNum);
 			ps.setString(2, username);
+			ps.executeUpdate();
+			
+			//Delete from waiting list if it's in there
+			String queryDelete = "DELETE FROM waitinglist WHERE userid = ? and flightnum = ? and flightairline = ?";
+			ps = con.prepareStatement(queryDelete);
+			ps.setString(1, username);
+			ps.setString(2, flightNum1);
+			ps.setString(3, airline1);
+			ps.executeUpdate();
+			ps = con.prepareStatement(queryDelete);
+			ps.setString(1, username);
+			ps.setString(2, flightNum2);
+			ps.setString(3, airline2);
 			ps.executeUpdate();
 		}
 		else{

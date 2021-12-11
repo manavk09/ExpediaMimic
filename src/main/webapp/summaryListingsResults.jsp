@@ -26,11 +26,11 @@
 		registerDao db = new registerDao();
 		Connection con = db.getConnection();
 		Statement stmt = con.createStatement();
-		String str = "select c.Flight_num, c.idline, t.Ticket_num, sum(t.Fair + t.Booking_Fees) as revenue from contains c, ticket t where t.Ticket_num = c.Ticket_num and c.Flight_num = \'" + flightInfos[0] + "\' and c.idline = \'" + flightInfos[1] +  "\' group by Flight_num, idline, Ticket_num";
+		String str = "select c.Flight_num, c.idline, sum(f.Fair + t.Booking_Fees + IF(t.class = 'First', 100, if(t.class = 'Business', 50, 0))) as revenue from flight f, contains c, ticket t where t.Ticket_num = c.Ticket_num and c.Flight_num = \'" + flightInfos[0] + "\' and c.idline = \'" + flightInfos[1] +  "\' and f.Flight_num = c.Flight_num and f.ID_Airline = c.idline group by Flight_num, idline";
 		ResultSet flights = stmt.executeQuery(str);
 		
 		stmt = con.createStatement();
-		String str2 = "select c.Flight_num, c.idline, t.Ticket_num, sum(t.Fair + t.Booking_Fees) as revenue from contains c, ticket t where t.Ticket_num = c.Ticket_num and c.Flight_num = \'" + flightInfos[0] + "\' and c.idline = \'" + flightInfos[1] +  "\' group by Flight_num, idline";
+		String str2 = "select c.Flight_num, c.idline, sum(f.Fair + t.Booking_Fees + IF(t.class = 'First', 100, if(t.class = 'Business', 50, 0))) as revenue from flight f, contains c, ticket t where t.Ticket_num = c.Ticket_num and c.Flight_num = \'" + flightInfos[0] + "\' and c.idline = \'" + flightInfos[1] +  "\' and f.Flight_num = c.Flight_num and f.ID_Airline = c.idline group by Flight_num, idline";
 		ResultSet totalRevenue = stmt.executeQuery(str2);
 		
 		if(!totalRevenue.next()){
@@ -43,22 +43,20 @@
 		else{
 			%>
 			<h1>
-				Total revenue for flight <%=flightAndAirline%>: <%=totalRevenue.getString(4)%> dollars.
+				Total revenue for flight <%=flightAndAirline%>: <%=totalRevenue.getString(3)%> dollars.
 			</h1>
 			<table>
 			<tr>
 				<th>Flight number</th>
 				<th>Airline</th>
-				<th>Ticket number</th>
 				<th>Revenue</th>
 			</tr>
 			<%
 				while(flights.next()){%>
 					<tr>
-						<td><%=flights.getString(1)%></td>
-						<td><%=flights.getString(2)%></td>
+						<td><%=flights.getString("c.Flight_num")%></td>
+						<td><%=flights.getString("c.idline")%></td>
 						<td><%=flights.getString(3)%></td>
-						<td><%=flights.getString(4)%></td>
 					</tr>
 				<%}
 			%>
@@ -74,11 +72,11 @@
 		registerDao db = new registerDao();
 		Connection con = db.getConnection();
 		Statement stmt = con.createStatement();
-		String str = "select c.idline, t.Ticket_num, sum(t.Fair + t.Booking_Fees) as revenue from contains c, ticket t where t.Ticket_num = c.Ticket_num and c.idline = \'" + airline + "\'group by idline, Ticket_num";
+		String str = "select c.idline, t.Ticket_num, sum(f.Fair + t.Booking_Fees + IF(t.class = 'First', 100, if(t.class = 'Business', 50, 0))) as revenue from flight f, contains c, ticket t where t.Ticket_num = c.Ticket_num and c.idline = \'" + airline + "\' and f.Flight_num = c.Flight_num and f.ID_Airline = c.idline group by idline, Ticket_num";
 		ResultSet airlinesRev = stmt.executeQuery(str);
 		
 		stmt = con.createStatement();
-		String str2 = "select c.idline, t.Ticket_num, sum(t.Fair + t.Booking_Fees) as revenue from contains c, ticket t where t.Ticket_num = c.Ticket_num and c.idline = \'" + airline + "\'group by idline";
+		String str2 = "select c.idline, t.Ticket_num, sum(f.Fair + t.Booking_Fees + IF(t.class = 'First', 100, if(t.class = 'Business', 50, 0))) as revenue from flight f, contains c, ticket t where t.Ticket_num = c.Ticket_num and c.idline = \'" + airline + "\' and f.Flight_num = c.Flight_num and f.ID_Airline = c.idline group by idline";
 		ResultSet totalRevenue = stmt.executeQuery(str2);
 		
 		if(!totalRevenue.next()){

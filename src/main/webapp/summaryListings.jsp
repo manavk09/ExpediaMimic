@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Summary listing</title>
 <style>
 	table, th, td {
 		border: 1px solid black;
@@ -31,7 +31,7 @@
 	ResultSet airlines = stmt.executeQuery(str2);
 	
 	stmt = con.createStatement();
-	String str3 = "SELECT Username FROM user";
+	String str3 = "SELECT Username FROM user WHERE role != 'Admin' and role != 'Customer Representative'";
 	ResultSet customers = stmt.executeQuery(str3);
 	%>
 	<form method = "post" action = "summaryListingsResults.jsp">

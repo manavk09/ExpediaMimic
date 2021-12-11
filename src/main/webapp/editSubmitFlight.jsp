@@ -11,8 +11,8 @@
 <%
 	if(request.getParameter("action").equals("Confirm edits")){
 		
-		String oldFlightNum = request.getParameter("oldFlightNum");
-		String oldAirline = request.getParameter("oldAirline");
+		String oldFlightNum = (String)session.getAttribute("oldFlightNum");
+		String oldAirline = (String)session.getAttribute("oldAirline");
 		String flightNum = request.getParameter("flightNum");
 		String airline = request.getParameter("airline");
 		String aircraft = request.getParameter("aircraft");

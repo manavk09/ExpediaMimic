@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Logged out</title>
 </head>
 <body>
 <h1>You have successfully logged out! Return to the homepage!</h1>

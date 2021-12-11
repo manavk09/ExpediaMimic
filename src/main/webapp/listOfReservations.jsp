@@ -15,6 +15,9 @@
 </style>
 </head>
 <body>
+	<form action = "AdminLoginSuccess.jsp" method = "post">
+		<input type = "submit" value = "Back">
+	</form>
 	<%
 	registerDao db = new registerDao();
 	Connection con = db.getConnection();
@@ -23,7 +26,7 @@
 	ResultSet flights = stmt.executeQuery(str);
 	
 	stmt = con.createStatement();
-	String str3 = "SELECT Username FROM user";
+	String str3 = "SELECT Username FROM user WHERE role != 'Admin' and role != 'Customer Representative'";
 	ResultSet customers = stmt.executeQuery(str3);
 	%>
 	<form method = "post" action = "listOfReservationsResults.jsp">

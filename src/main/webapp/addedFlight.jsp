@@ -17,6 +17,8 @@
 		String destAir = request.getParameter("destAir");
 		String depTime = request.getParameter("dep");
 		String arrivalTime = request.getParameter("arrival");
+		depTime.replace("T", " ");
+		arrivalTime.replace("T", " ");
 		String fair = request.getParameter("Fair");
 		String travelType = request.getParameter("travelType");
 		registerDao db = new registerDao();

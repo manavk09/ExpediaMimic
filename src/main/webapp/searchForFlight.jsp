@@ -42,14 +42,14 @@
 	Connection con = db.getConnection();
 	String query;
 	if(searchType.equals("Search One way flights")){
-		query = "SELECT * FROM flight where Departure_Airport = ? and Destination_Airport = ? and ABS(DATEDIFF(Departure_Time, ?)) <= ?";
+		query = "SELECT * FROM flight WHERE Departure_Airport = ? and Destination_Airport = ? and ABS(DATEDIFF(Departure_Time, ?)) <= ?";
 		if(request.getParameter("Filter-Type") != null){
 			switch(request.getParameter("Filter-Type")){
 				case "price" :
 					query += " and Fair >= " + request.getParameter("price-min") + " and Fair <= " + request.getParameter("price-max");
 					break;
 				case "airline" :
-					query += " and ID_Airline = " + request.getParameter("airline-id");
+					query += " and ID_Airline = '" + request.getParameter("airline-id") + "'";
 					break;
 				case "take-off-time" :
 					query += " and TIMEDIFF(TIME(Departure_Time), '" + request.getParameter("min-take-off-time") + "') >= 0 and TIMEDIFF(TIME(Departure_Time), '" + request.getParameter("max-take-off-time") + "') <= 0";
@@ -139,10 +139,10 @@
 			<label for = "classEconomy">Economy</label><br>
 			
 			<input type = "radio" name = "class" id = "classBusiness" value = "Business">
-			<label for = "classBusiness">Business</label><br>
+			<label for = "classBusiness">Business: +$50</label><br>
 		
 			<input type = "radio" name = "class" id = "classFirst" value = "First">
-			<label for = "classFirst">First</label><br>
+			<label for = "classFirst">First: +$100</label><br>
 			<input type = "submit" name = "action" value = "Confirm Ticket">
 			</form>
 			<%
@@ -156,7 +156,7 @@
 					query += " and (f1.Fair + f2.Fair) >= " + request.getParameter("price-min") + " and (f1.Fair + f2.Fair) <= " + request.getParameter("price-max");
 					break;
 				case "airline" :
-					query += " and f1.ID_Airline = " + request.getParameter("airline-id") + " and f2.ID_Airline = " + request.getParameter("airline-id");
+					query += " and f1.ID_Airline = '" + request.getParameter("airline-id") + "' and f2.ID_Airline = '" + request.getParameter("airline-id") + "'";
 					break;
 				case "take-off-time" :
 					query += " and TIMEDIFF(TIME(f1.Departure_Time), '" + request.getParameter("min-take-off-time") + "') >= 0 and TIMEDIFF(TIME(f1.Departure_Time), '" + request.getParameter("max-take-off-time") + "') <= 0";
@@ -267,16 +267,16 @@
 			while(flights.next());
 			%>
 			</table>
-			Select class:<br>
+			Select class for the flights:<br>
 			
 			<input type = "radio" name = "class" id = "classEconomy" value = "Economy">
 			<label for = "classEconomy">Economy</label><br>
 			
 			<input type = "radio" name = "class" id = "classBusiness" value = "Business">
-			<label for = "classBusiness">Business</label><br>
+			<label for = "classBusiness">Business: +$100</label><br>
 		
 			<input type = "radio" name = "class" id = "classFirst" value = "First">
-			<label for = "classFirst">First</label><br>
+			<label for = "classFirst">First: +$200</label><br>
 			<input type = "submit" name = "action" value = "Confirm Round Trip Ticket">
 			</form>
 			<%

@@ -21,7 +21,7 @@ ResultSet set = state.executeQuery(querry);
 
 <h3>Flight tickets</h3>
 <form method = "post" action = editTicket.jsp>
-<table border=1 align=left style="text-align:center">
+<table border=1 style="text-align:center">
       <thead>
           <tr>
              <th>Ticket Number</th>

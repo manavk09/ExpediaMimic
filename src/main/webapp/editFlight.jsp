@@ -32,8 +32,8 @@
 			<tr><td>Aircraft: </td><td><input type="text" name="aircraft"></td></tr>
 			<tr><td>Departure Airport: </td><td><input type="text" name="depAir"></td></tr>
 			<tr><td>Destination Airport: </td><td><input type="text" name="destAir"></td></tr>
-			<tr><td>Departure Time: </td><td><input type="text" name="dep"></td></tr>
-			<tr><td>Arrival Time: </td><td><input type="text" name="arrival"></td></tr>
+			<tr><td>Departure Time: </td><td><input type="datetime-local" name="dep"></td></tr>
+			<tr><td>Arrival Time: </td><td><input type="datetime-local" name="arrival"></td></tr>
 			<tr><td>Fair: </td><td><input type="text" name="Fair"></td></tr>
 			<tr><td>Travel Type: </td><td><input type="text" name="travelType"></td></tr>
 			
@@ -53,10 +53,10 @@
 		stmnt.setString(2, airlineID);
 		ResultSet result = stmnt.executeQuery();
 		result.next();
+		session.setAttribute("oldFlightNum", flightNum);
+		session.setAttribute("oldAirline", airlineID);
 		%>
 		<form action = "editSubmitFlight.jsp" method = post>
-			<input name = "oldFlightNum" value = <%=flightNum%>>
-			<input name = "oldAirline" value = <%=airlineID%>>
 			<table>
 				<tr><td>Flight number: </td><td><input type="text" name="flightNum" value = <%=result.getString(1)%>></td></tr>
 				<tr><td>Airline: </td><td><input type="text" name="airline" value = <%=result.getString(2)%>></td></tr>

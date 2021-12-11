@@ -39,7 +39,7 @@
 			}
 			else{
 				%>
-				<h1>Reservations for airline <%=flightInfos[1]%></h1>
+				<h1>Reservations for flight <%=flightInfos[0] + ", " + flightInfos[1]%></h1>
 				
 				<table>
 				<tr>

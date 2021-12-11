@@ -23,7 +23,7 @@
 <%
 	registerDao db = new registerDao();
 	Connection con = db.getConnection();
-	PreparedStatement stmt = con.prepareStatement("SELECT f.Flight_num, f.ID_Airline, f.Departure_Airport, f.Destination_Airport, f.Departure_Time, f.Arrival_Time FROM flight f, contains c, books b, user u WHERE f.Flight_num = c.Flight_num and c.Ticket_num = b.ticketNum and b.userId = u.Username and u.Username = ? and DATEDIFF(NOW(), f.Departure_Time) >= 0");
+	PreparedStatement stmt = con.prepareStatement("SELECT f.Flight_num, f.ID_Airline, f.Departure_Airport, f.Destination_Airport, f.Departure_Time, f.Arrival_Time, t.class, t.Ticket_num FROM flight f, contains c, books b, user u, ticket t WHERE t.Ticket_num = c.Ticket_num and f.Flight_num = c.Flight_num and c.Ticket_num = b.ticketNum and b.userId = u.Username and u.Username = ? and DATEDIFF(NOW(), f.Departure_Time) >= 0");
 	stmt.setString(1, LoginServelet.userName);
 	ResultSet reservations = stmt.executeQuery();
 	
@@ -42,6 +42,8 @@
 				<th>Arrival Airport</th>
 				<th>Departure date/time</th>
 				<th>Arrival date/time</th>
+				<th>Class</th>
+				<th>Ticket number</th>
 			</tr>
 			<%
 			do{
@@ -53,6 +55,8 @@
 					<td><%=reservations.getString(4) %></td>
 					<td><%=reservations.getString(5) %></td>
 					<td><%=reservations.getString(6) %></td>
+					<td><%=reservations.getString(7) %></td>
+					<td><%=reservations.getString(8) %></td>
 				</tr>
 				
 				<%
